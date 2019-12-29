@@ -1,19 +1,5 @@
 .idea
 
-config/*/config*.yaml
-config/*/config*.js
-k8s/addons/pki/*/*
-k8s/environments/*
-!k8s/environments/dev
-!k8s/environments/prd
-!k8s/environments/test
-k8s/environments/dev/kubeconfig.yaml
-k8s/environments/prd/kubeconfig.yaml
-k8s/environments/test/kubeconfig.yaml
 bazel-*
-.ijwb
-js/node_modules
-
 \.DS_Store
 
-config-esqimo
