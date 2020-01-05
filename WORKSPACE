@@ -1,5 +1,6 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+# Download the rules_go repository at release v0.20.3
 http_archive(
     name = "io_bazel_rules_go",
     urls = [
@@ -15,6 +16,7 @@ go_rules_dependencies()
 
 go_register_toolchains()
 
+# Download the gazelle repository at release v0.19.1
 http_archive(
     name = "bazel_gazelle",
     urls = [
@@ -27,3 +29,37 @@ http_archive(
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 
 gazelle_dependencies()
+
+# Download the rules_docker repository at release v0.13.0
+http_archive(
+    name = "io_bazel_rules_docker",
+    sha256 = "df13123c44b4a4ff2c2f337b906763879d94871d16411bf82dcfeba892b58607",
+    strip_prefix = "rules_docker-0.13.0",
+    urls = ["https://github.com/bazelbuild/rules_docker/releases/download/v0.13.0/rules_docker-v0.13.0.tar.gz"],
+)
+
+load(
+    "@io_bazel_rules_docker//repositories:repositories.bzl",
+    container_repositories = "repositories",
+)
+container_repositories()
+
+load(
+    "@io_bazel_rules_docker//container:container.bzl",
+    "container_pull",
+)
+
+load(
+    "@io_bazel_rules_docker//go:image.bzl",
+    _go_image_repos = "repositories",
+)
+
+_go_image_repos()
+
+#container_pull(
+#  name = "java_base",
+#  registry = "gcr.io",
+#  repository = "distroless/java",
+#  # 'tag' is also supported, but digest is encouraged for reproducibility.
+#  digest = "sha256:deadbeef",
+#)
